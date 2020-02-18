@@ -1,0 +1,16 @@
+//python -m grpc_tools.protoc -I./proto --python_out=. --grpc_python_out=. ./proto/operator.proto
+
+syntax = "proto3";
+
+message Req {
+    string u_id = 1;
+}
+
+message Resp {
+    string data = 1;
+    int32 code = 2;
+}
+
+service Game {
+    rpc GetResult(Req) returns (Resp) {}
+}
