@@ -1,3 +1,11 @@
+from gevent import monkey
+monkey.patch_all()
+
+import grpc
+import grpc.experimental.gevent as grpc_gevent
+grpc_gevent.init_gevent()
+
+
 import operator_pb2
 import operator_pb2_grpc
 import api
@@ -5,6 +13,7 @@ import api
 import grpc
 import time
 from concurrent import futures
+
 
 class GameService(operator_pb2_grpc.GameServicer):
     def GetResult(self, request, context):
