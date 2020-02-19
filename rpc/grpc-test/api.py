@@ -1,9 +1,8 @@
 import time
-import gevent
+import asyncio
 
-
-def get_result(u_id):
-    time.sleep(1)
+async def get_result(u_id):
+    await asyncio.sleep(1)
     if not u_id:
         return dict(data='', code=400)
     return dict(data=u_id, code=200)
