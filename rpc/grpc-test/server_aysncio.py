@@ -12,7 +12,7 @@ from grpc_asyncio import AsyncioExecutor
 class GameService(operator_pb2_grpc.GameServicer):
     async def GetResult(self, request, context):
         response = operator_pb2.Resp()
-        data = await api.get_result(request.u_id)
+        data = await api.get_result_short(request.u_id)
         response.data = data['data']
         response.code = data['code']
         return response
