@@ -29,4 +29,171 @@ Running 30s test @ http://127.0.0.1:8081/test
 Requests/sec:    545.57
 Transfer/sec:     87.91KB
 
-gunicorn + meinheld
+
+gunicorn+ gevent + flask [1worker]
+ab -n 10000 -c 400 http://127.0.0.1:8081/test
+This is ApacheBench, Version 2.3 <$Revision: 1826891 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 1000 requests
+Completed 2000 requests
+Completed 3000 requests
+Completed 4000 requests
+Completed 5000 requests
+Completed 6000 requests
+Completed 7000 requests
+Completed 8000 requests
+Completed 9000 requests
+Completed 10000 requests
+Finished 10000 requests
+
+
+Server Software:        gunicorn/20.0.4
+Server Hostname:        127.0.0.1
+Server Port:            8081
+
+Document Path:          /test
+Document Length:        13 bytes
+
+Concurrency Level:      400
+Time taken for tests:   15.098 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1650000 bytes
+HTML transferred:       130000 bytes
+Requests per second:    662.32 [#/sec] (mean)
+Time per request:       603.939 [ms] (mean)
+Time per request:       1.510 [ms] (mean, across all concurrent requests)
+Transfer rate:          106.72 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    5  25.5      0     333
+Processing:     4  589 198.0    579    1824
+Waiting:        1  589 198.1    579    1824
+Total:          5  594 201.5    580    1834
+
+Percentage of the requests served within a certain time (ms)
+  50%    580
+  66%    593
+  75%    603
+  80%    611
+  90%    650
+  95%    699
+  98%   1608
+  99%   1704
+ 100%   1834 (longest request)
+
+gunicorn+ gevent + flask [2worker]
+ab -n 10000 -c 400 http://127.0.0.1:8081/test
+This is ApacheBench, Version 2.3 <$Revision: 1826891 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 1000 requests
+Completed 2000 requests
+Completed 3000 requests
+Completed 4000 requests
+Completed 5000 requests
+Completed 6000 requests
+Completed 7000 requests
+Completed 8000 requests
+Completed 9000 requests
+Completed 10000 requests
+Finished 10000 requests
+
+
+Server Software:        gunicorn/20.0.4
+Server Hostname:        127.0.0.1
+Server Port:            8081
+
+Document Path:          /test
+Document Length:        13 bytes
+
+Concurrency Level:      400
+Time taken for tests:   10.314 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1650000 bytes
+HTML transferred:       130000 bytes
+Requests per second:    969.53 [#/sec] (mean)
+Time per request:       412.571 [ms] (mean)
+Time per request:       1.031 [ms] (mean, across all concurrent requests)
+Transfer rate:          156.22 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    1   3.9      0     109
+Processing:     1  399 396.0    320    2771
+Waiting:        1  398 396.0    320    2771
+Total:          1  400 396.7    321    2771
+
+Percentage of the requests served within a certain time (ms)
+  50%    321
+  66%    455
+  75%    522
+  80%    544
+  90%    608
+  95%   1221
+  98%   1875
+  99%   2317
+ 100%   2771 (longest request)
+
+gunicorn+ gevent + flask [4worker]
+ab -n 10000 -c 400 http://127.0.0.1:8081/test
+This is ApacheBench, Version 2.3 <$Revision: 1826891 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 1000 requests
+Completed 2000 requests
+Completed 3000 requests
+Completed 4000 requests
+Completed 5000 requests
+Completed 6000 requests
+Completed 7000 requests
+Completed 8000 requests
+Completed 9000 requests
+Completed 10000 requests
+Finished 10000 requests
+
+
+Server Software:        gunicorn/20.0.4
+Server Hostname:        127.0.0.1
+Server Port:            8081
+
+Document Path:          /test
+Document Length:        13 bytes
+
+Concurrency Level:      400
+Time taken for tests:   8.744 seconds
+Complete requests:      10000
+Failed requests:        0
+Total transferred:      1650000 bytes
+HTML transferred:       130000 bytes
+Requests per second:    1143.64 [#/sec] (mean)
+Time per request:       349.761 [ms] (mean)
+Time per request:       0.874 [ms] (mean, across all concurrent requests)
+Transfer rate:          184.28 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    1   4.9      0      61
+Processing:     1  340 689.6     64    4913
+Waiting:        1  340 689.6     64    4912
+Total:          2  341 690.4     65    4913
+
+Percentage of the requests served within a certain time (ms)
+  50%     65
+  66%    159
+  75%    295
+  80%    396
+  90%    950
+  95%   2101
+  98%   3077
+  99%   3481
+ 100%   4913 (longest request)
