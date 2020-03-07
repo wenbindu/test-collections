@@ -27,12 +27,41 @@ def timer(func):
 
     return decorator
 
+def get_no():
+    z = r.get('test2')
+    print('room_no: {}'.format(z))
+    if not z:
+        create_no()
+        return get_no()
+    else:
+        if player_num() > 100:
+            create_no()
+            return get_no()
+        else:
+            return z
+
+def player_num():
+    return r.incrby('room_num')
+
+def create_no():
+    if r.setnx('lock', 1):
+        print('locked!')
+        n = r.incrby('test2')
+        r.delete('room_num')
+        r.delete('lock')
+        return n
+    else:
+        print('sleep!')
+        time.sleep(0.05)
+
 
 @app.route('/test', methods=['POST', 'GET'])
 @timer
 def test(data):
-    # r.smembers('test1')
-    r.get('test')
+    # no = get_no()
+    # print(no)
+    z = r.incrby('incry_4')
+    print(z)
     return jsonify(dict(code=200))
     
 
