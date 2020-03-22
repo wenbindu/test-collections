@@ -1,11 +1,10 @@
-from gevent import monkey
+import gevent
+# from gevent import monkey
 
-monkey.patch_all()
+# monkey.patch_all()
 import time
 import timeit
 import redis
-from redis.connection import UnixDomainSocketConnection
-
 
 pool = redis.ConnectionPool(host='127.0.0.1', 
                     port='6379', 
@@ -17,13 +16,11 @@ r = redis.StrictRedis(
     )
 
 def redis_test():
-    print('begin')
     r.set("testsocket", 1)
     for _ in range(100):
         r.incr('testsocket', 10)
     r.get('testsocket')
     r.delete('testsocket')
-    print('end')
 
 def redis_pipe():
     p = r.pipeline(transaction=False)
@@ -34,23 +31,23 @@ def redis_pipe():
     p.delete('testsocket')
     p.execute()
 
-# def main():
-#     st = time.time()
-#     for _ in range(1000):
-#         redis_pipe()
-#     print(time.time() - st)
+def main():
+    st = time.time()
+    gs = []
+    for _ in range(1000):
+        # gs.append(gevent.spawn(redis_pipe))
+        gs.append(gevent.spawn(redis_test))
 
-# main()
+    gevent.joinall(gs)
+    print(time.time() - st)
 
-print(timeit.Timer(stmt='redis_test()', 
-setup='from __main__ import redis_test').timeit(number=1000))
-
+main()
 
 
 # python -m cProfile -o test.pstats  gevent_test.py
 # snakeviz test.pstats
 
-# gevent: 11s
-# no gevent: 8s
-# gevent: pipeline: 1.45s
-# no gevent: pipelint: 1.37s
+# gevent: 10.5s   connection: 1
+# no gevent: 7.7s  connection: 200+
+# gevent: pipeline: 1.53s
+# no gevent: pipelint: 1.31s

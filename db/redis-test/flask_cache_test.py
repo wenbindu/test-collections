@@ -5,9 +5,11 @@ import time
 
 app = Flask(__name__)
 config = {
-    "DEBUG": True,          # some Flask specific configs
+    # "DEBUG": True,          # some Flask specific configs
     "CACHE_TYPE": "simple", # Flask-Caching related configs
-    "CACHE_DEFAULT_TIMEOUT": 300
+    "CACHE_DEFAULT_TIMEOUT": 300,
+    # 'CACHE_TYPE': 'redis',
+    # 'CACHE_REDIS_URL': 'redis://127.0.0.1:6379'
 }
 app.config.from_mapping(config)
 cache = Cache(app)
@@ -32,6 +34,6 @@ def get_cache_redis():
 r.set('test', '2')
 s = time.time()
 for _ in range(100000):
-    print(get_cache_redis())
+    print(get_cache())
 
 print(time.time() - s)

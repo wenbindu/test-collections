@@ -63,7 +63,9 @@ def test(data):
     z = r.incrby('incry_4')
     print(z)
     return jsonify(dict(code=200))
-    
+
+# NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program gunicorn -w 4 -t 1800 -b :8081 -k gevent --log-level=info server:app
+
 
 # gunicorn -w 4 -t 1800 -b :8081 -k gevent --log-level=info server:app
 """ 20
