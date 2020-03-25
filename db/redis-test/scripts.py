@@ -68,6 +68,7 @@ if __name__ == "__main__":
     # multi_main()
 # python -m cProfile -o test.pstats  scripts.py
 # python -m cProfile -s cumulative scripts.py
+# snakeviz test.pstats
 # gprof2dot -f pstats test.pstats | dot -Tpng -o output.png && eog output.png
 
 
