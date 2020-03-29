@@ -41,8 +41,12 @@ def main():
     gevent.joinall(gs)
     print(time.time() - st)
 
-main()
 
+# main()
+import pstats
+p = pstats.Stats("/Users/blowfire/data-ana/raw/prof/cprofile.1585193400600.prof")
+p.sort_stats("cumulative")
+p.print_stats()
 
 # python -m cProfile -o test.pstats  gevent_test.py
 # snakeviz test.pstats
