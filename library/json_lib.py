@@ -5,6 +5,7 @@ import rapidjson
 import ujson
 import simplejson
 import hyperjson
+import simdjson
 
 num = 10**6
 
@@ -55,6 +56,7 @@ benchmark_load("rapidjson", rapidjson.loads)
 benchmark_load("ujson", ujson.loads)
 benchmark_load("simplejson", simplejson.loads)
 benchmark_load("hyperjson", hyperjson.loads)
+benchmark_load("pysimdjson-load", lambda x: simdjson.loads(x.encode('utf-8')))
 
 # dumps
 # orjson 1.227565050125122
@@ -73,3 +75,4 @@ benchmark_load("hyperjson", hyperjson.loads)
 # python-rapidjson==0.9.1
 # simplejson==3.17.0
 # ujson==1.35
+# pysimdjson==1.4.1
