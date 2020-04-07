@@ -1,5 +1,20 @@
 import pstats
-path = "/var/log/slots/test_1585728421683.prof"
+path = "/var/log/slots/cprofile.1585808923881.prof"
 p = pstats.Stats(path)
-p.sort_stats("cumulative")
+p.sort_stats("tottime")
 p.print_stats()
+
+# calls (call count)
+# cumulative (cumulative time)
+# cumtime (cumulative time)
+# file (file name)
+# filename (file name)
+# module (file name)
+# ncalls (call count)
+# pcalls (primitive call count)
+# line (line number)
+# name (function name)
+# nfl (name/file/line)
+# stdname (standard name)
+# time (internal time)
+# tottime (internal time)
